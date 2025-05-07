@@ -6,7 +6,6 @@ namespace SistemaHoteleiro
     {
         static void Main(string[] args)
         {
-
             Hotel hotel = new Hotel();
             Cliente cliente = new Cliente();
             Funcionario funcionario = new Funcionario();
@@ -15,51 +14,49 @@ namespace SistemaHoteleiro
             Reserva reserva = new Reserva();
             Endereco endereco = new Endereco();
 
-
             //hotel
-            WriteLine("Cadastro hotel");
+            WriteLine("Cadastro do Hotel");
             WriteLine();
 
-            Write("nome do hotel: ");
+            Write("Nome do hotel: ");
             hotel.setNomeCompleto(ReadLine());
 
-            Write("nome da empresa: ");
+            Write("Nome da empresa: ");
             hotel.setNomeEmpresa(ReadLine());
 
-            Write("data da fundação: ");
+            Write("Data de fundação: ");
             hotel.setDataFundacao(ReadLine());
 
-            Write("email do hotel: ");
+            Write("E-mail corporativo: ");
             hotel.setEmailCorporativo(ReadLine());
 
-            WriteLine("Endereco: ");
-            Write("estado: ");
+            WriteLine("\nEndereço do hotel:");
+            Write("Estado: ");
             endereco.setEstado(ReadLine());
-            Write("cidade: ");
+            Write("Cidade: ");
             endereco.setCidade(ReadLine());
-            Write("bairro: ");
+            Write("Bairro: ");
             endereco.setBairro(ReadLine());
-            Write("cep: ");
+            Write("CEP: ");
             endereco.setCep(ReadLine());
-            Write("logradouro: ");
+            Write("Logradouro: ");
             endereco.setLogradouro(ReadLine());
-            Write("complemento: ");
+            Write("Complemento: ");
             endereco.setComplemento(ReadLine());
-            Write("numero: ");
+            Write("Número: ");
             endereco.setNumero(ReadLine());
 
             hotel.setEndereco(endereco);
 
-
             //cliente
             Clear();
-            WriteLine("Cliente:");
+            WriteLine("Cadastro do Cliente");
             WriteLine();
 
-            Write("Nome do cliente: ");
+            Write("Nome: ");
             cliente.setNome(ReadLine());
 
-            Write("Código do cliente: ");
+            Write("Código: ");
             cliente.setCodigo(ReadLine());
 
             Write("Profissão: ");
@@ -71,7 +68,7 @@ namespace SistemaHoteleiro
             Write("CPF: ");
             cliente.setCpf(ReadLine());
 
-            WriteLine("Endereço do cliente: ");
+            WriteLine("\nEndereço do cliente:");
             Write("Estado: ");
             endereco.setEstado(ReadLine());
             Write("Cidade: ");
@@ -89,16 +86,15 @@ namespace SistemaHoteleiro
 
             cliente.setEndereco(endereco);
 
-
             //funcionario
             Clear();
-            WriteLine("Cadastro de Funcionário");
+            WriteLine("Cadastro do Funcionário");
             WriteLine();
 
-            Write("Nome do funcionário: ");
+            Write("Nome: ");
             funcionario.setNome(ReadLine());
 
-            Write("Código do funcionário: ");
+            Write("Código: ");
             funcionario.setCodigo(ReadLine());
 
             Write("RG: ");
@@ -107,10 +103,15 @@ namespace SistemaHoteleiro
             Write("CPF: ");
             funcionario.setCpf(ReadLine());
 
-            Write("Salário: ");
-            funcionario.setSalario(decimal.Parse(ReadLine()));
+            decimal salario;
+            Write("Salário (ex: 1500.50): ");
+            while (!decimal.TryParse(ReadLine(), out salario))
+            {
+                Write("Valor inválido! Digite novamente (ex: 1500.50): ");
+            }
+            funcionario.setSalario(salario);
 
-            WriteLine("Endereço do funcionário: ");
+            WriteLine("\nEndereço do funcionário:");
             Write("Estado: ");
             endereco.setEstado(ReadLine());
             Write("Cidade: ");
@@ -128,89 +129,117 @@ namespace SistemaHoteleiro
 
             funcionario.setEndereco(endereco);
 
-
-            
             //quarto
             Clear();
-            WriteLine("Quarto:");
+            WriteLine("Cadastro de Quarto");
             WriteLine();
 
+            int numeroQuarto;
             Write("Número do quarto: ");
-            quarto.setNumQuarto(int.Parse(ReadLine()));
+            while (!int.TryParse(ReadLine(), out numeroQuarto))
+            {
+                Write("Valor inválido! Digite um número inteiro: ");
+            }
+            quarto.setNumQuarto(numeroQuarto);
 
-            Write("Descrição: ");
+            Write("Descrição do quarto: ");
             quarto.setDescricao(ReadLine());
 
-            Write("Categoria: ");
+            Write("Categoria do quarto: ");
             quarto.setCategoria(ReadLine());
 
+            int qtdCamas;
             Write("Quantidade de camas: ");
-            quarto.setQtdCamas(int.Parse(ReadLine()));
+            while (!int.TryParse(ReadLine(), out qtdCamas))
+            {
+                Write("Valor inválido! Digite um número inteiro: ");
+            }
+            quarto.setQtdCamas(qtdCamas);
 
             //servicos
             Clear();
-            WriteLine("Serviços: ");
+            WriteLine("Cadastro de Serviço");
             WriteLine();
 
             Write("Descrição do serviço: ");
             servico.setDescricao(ReadLine());
 
-            Write("Valor do serviço: ");
-            servico.setValor(decimal.Parse(ReadLine()));
+            decimal valorServico;
+            Write("Valor do serviço (ex: 199.90): R$ ");
+            while (!decimal.TryParse(ReadLine(), out valorServico))
+            {
+                Write("Valor inválido! Digite novamente (ex: 199.90): R$ ");
+            }
+            servico.setValor(valorServico);
 
             Write("Categoria do serviço: ");
             servico.setCategoria(ReadLine());
 
-            Write("O serviço está ativo?: \n1.Sim\n0.Não");
+            Write("O serviço está ativo? (1 - Sim | 0 - Não): ");
             int opcao;
             while (!int.TryParse(ReadLine(), out opcao) || (opcao != 0 && opcao != 1))
             {
-                Write("São permitidos somente 0 ou 1, 1 - ativo / 0 - inativo");
+                Write("Entrada inválida! Digite 1 para Sim ou 0 para Não: ");
             }
             servico.setAtivo(opcao == 1);
 
-
-
-            WriteLine("\nCadastro de Reserva");
+            //reserva
+            Clear();
+            WriteLine("Cadastro de Reserva");
             WriteLine();
 
-            // Dados básicos da reserva
             Write("Descrição da reserva: ");
             reserva.setDescricao(ReadLine());
 
             Write("Data da reserva (DD/MM/AAAA): ");
             reserva.setDataAplicacao(ReadLine());
 
-            // Cadastro do quarto para a reserva
-            WriteLine("\nDados do Quarto:");
+            WriteLine("\nInformações do quarto para reserva:");
             Write("Número do quarto: ");
-            quarto.setNumQuarto(int.Parse(ReadLine()));
+            while (!int.TryParse(ReadLine(), out numeroQuarto))
+            {
+                Write("Valor inválido! Digite um número inteiro: ");
+            }
+            quarto.setNumQuarto(numeroQuarto);
 
             Write("Categoria: ");
             quarto.setCategoria(ReadLine());
 
             Write("Quantidade de camas: ");
-            quarto.setQtdCamas(int.Parse(ReadLine()));
+            while (!int.TryParse(ReadLine(), out qtdCamas))
+            {
+                Write("Valor inválido! Digite um número inteiro: ");
+            }
+            quarto.setQtdCamas(qtdCamas);
 
             reserva.setQuarto(quarto);
 
-            // Valor da diária
-            Write("Valor da diária: R$ ");
-            reserva.setValorDiaria(decimal.Parse(ReadLine()));
+            decimal valorDiaria;
+            Write("Valor da diária (ex: 350.00): R$ ");
+            while (!decimal.TryParse(ReadLine(), out valorDiaria))
+            {
+                Write("Valor inválido! Digite novamente (ex: 350.00): R$ ");
+            }
+            reserva.setValorDiaria(valorDiaria);
 
-            // Cadastro de serviço para a reserva
-            WriteLine("\nDados do Serviço:");
+            //dados do serviço na reserva
+            Clear();
+            WriteLine("Informações do Serviço incluso na reserva");
             Write("Descrição do serviço: ");
             servico.setDescricao(ReadLine());
 
-            Write("Valor do serviço: R$ ");
-            servico.setValor(decimal.Parse(ReadLine()));
+            Write("Valor do serviço (ex: 80.00): R$ ");
+            while (!decimal.TryParse(ReadLine(), out valorServico))
+            {
+                Write("Valor inválido! Digite novamente (ex: 80.00): R$ ");
+            }
+            servico.setValor(valorServico);
 
             reserva.setServicos(servico);
 
+            //cálculo do valor total
             decimal valorTotal = reserva.getValorDiaria() + reserva.getServicos().getValor();
             reserva.setValorTotal(valorTotal);
-
 
             Clear();
             WriteLine("Dados do hotel: ");
@@ -272,24 +301,29 @@ namespace SistemaHoteleiro
             WriteLine("Valor: {0:C}", servico.getValor());
             WriteLine("Categoria: {0}", servico.getCategoria());
             WriteLine("Status: {0}", servico.getAtivo() ? "Ativo" : "Inativo");
+            WriteLine();
 
             WriteLine("Dados da Reserva:");
             WriteLine("Descrição: {0}", reserva.getDescricao());
             WriteLine("Data: {0}", reserva.getDataAplicacao());
 
-            WriteLine("\nQuarto:");
+            WriteLine();
+            WriteLine("Quarto:");
             WriteLine(" - Número: {0}", reserva.getQuarto().getNumQuarto());
             WriteLine(" - Categoria: {0}", reserva.getQuarto().getCategoria());
             WriteLine(" - Camas: {0}", reserva.getQuarto().getQtdCamas());
 
-            WriteLine("\nServiço:");
+            WriteLine();
+            WriteLine("Serviço:");
             WriteLine(" - Descrição: {0}", reserva.getServicos().getDescricao());
             WriteLine(" - Valor: {0:C}", reserva.getServicos().getValor());
 
-            WriteLine("\nValores:");
+            WriteLine();
+            WriteLine("Valores:");
             WriteLine(" - Diária: {0:C}", reserva.getValorDiaria());
             WriteLine(" - Total: {0:C}", reserva.getValorTotal());
 
+            ReadKey();
         }
     }
 }
